@@ -17,31 +17,36 @@ interface ProviderRuntime {
 export function loadProvidersFromEnv(): LlmProviderConfig[] {
   const configs: LlmProviderConfig[] = [];
 
-  // Check numbered providers: LLM_PROVIDER_1_* through LLM_PROVIDER_3_*
+  // Check numbered providers: LLM_PROVIDER_1_* through LLM_PROVIDER_5_*
   for (let i = 1; i <= 5; i++) {
     const key = process.env[`LLM_PROVIDER_${i}_API_KEY`];
-    if (key && key.trim()) {
+    const baseUrl = process.env[`LLM_PROVIDER_${i}_BASE_URL`];
+    const name = process.env[`LLM_PROVIDER_${i}_NAME`];
+    const model = process.env[`LLM_PROVIDER_${i}_MODEL`];
+
+    // Support open-weight local providers (Ollama, vLLM) that have a baseUrl or name without requiring an API key
+    if ((key && key.trim()) || baseUrl || name) {
       configs.push({
-        name: process.env[`LLM_PROVIDER_${i}_NAME`] || `provider-${i}`,
+        name: name || `provider-${i}`,
         baseUrl:
-          process.env[`LLM_PROVIDER_${i}_BASE_URL`] ||
-          "https://generativelanguage.googleapis.com/v1beta/openai",
-        apiKey: key.trim(),
-        model: process.env[`LLM_PROVIDER_${i}_MODEL`] || "gemini-3.1-flash-lite",
-        rpm: parseInt(process.env[`LLM_PROVIDER_${i}_RPM`] || "15", 10),
-        tpm: parseInt(process.env[`LLM_PROVIDER_${i}_TPM`] || "250000", 10),
-        concurrency: parseInt(process.env[`LLM_PROVIDER_${i}_CONCURRENCY`] || "1", 10),
+          baseUrl ||
+          "http://localhost:11434/v1",
+        apiKey: key && key.trim() ? key.trim() : "ollama",
+        model: model || "gemma2:9b",
+        rpm: parseInt(process.env[`LLM_PROVIDER_${i}_RPM`] || "60", 10),
+        tpm: parseInt(process.env[`LLM_PROVIDER_${i}_TPM`] || "500000", 10),
+        concurrency: parseInt(process.env[`LLM_PROVIDER_${i}_CONCURRENCY`] || "2", 10),
       });
     }
   }
 
   // Fallback to legacy un-numbered env vars if no numbered ones exist
-  if (configs.length === 0 && process.env["LLM_API_KEY"]) {
+  if (configs.length === 0 && (process.env["LLM_API_KEY"] || process.env["LLM_BASE_URL"])) {
     configs.push({
-      name: "default",
-      baseUrl: process.env["LLM_BASE_URL"] || "https://generativelanguage.googleapis.com/v1beta/openai",
-      apiKey: process.env["LLM_API_KEY"].trim(),
-      model: process.env["LLM_MODEL"] || "gemini-3.1-flash-lite",
+      name: process.env["LLM_NAME"] || "open-weight-default",
+      baseUrl: process.env["LLM_BASE_URL"] || "http://localhost:11434/v1",
+      apiKey: process.env["LLM_API_KEY"]?.trim() || "ollama",
+      model: process.env["LLM_MODEL"] || "gemma2:9b",
     });
   }
 
@@ -112,7 +117,7 @@ export class MultiProviderLlmClient implements ILlmClient {
 
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${provider.config.apiKey}`,
+      Authorization: `Bearer ${provider.config.apiKey || "ollama"}`,
     };
 
     const body = JSON.stringify({

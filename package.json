@@ -1,8 +1,8 @@
 {
-  "name": "ai-interview-prep-kit",
+  "name": "prepme",
   "version": "1.0.0",
   "private": true,
-  "description": "AI Interview Prep Kit monorepo",
+  "description": "PrepMe — Open-Source AI Interview Prep Kit Platform",
   "workspaces": [
     "packages/*"
   ],

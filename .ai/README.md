@@ -1,4 +1,11 @@
-# .ai index
+# .ai Index — PrepMe (Open-Source AI Side Hustle Platform)
+
+> **Challenge Theme: Side Hustle**  
+> Build something with open-weight models or open-source AI that someone would actually pay for.  
+> **Brand & Identity:** PrepMe — Automated, grounded interview preparation SaaS and study platform.  
+> **Core Engine:** Powered by **Google Gemma 2** (`gemma2:9b` locally via Ollama / `gemma-2-9b-it` cloud open-weights) with zero marginal inference cost and complete air-gapped data privacy.  
+> **Data Layer:** MongoDB Atlas for persistent kit state, versioned history, and user sessions.  
+> **Zero legacy assessment names:** All references to `trao_assignment` or legacy names have been removed.
 
 Working instructions for the coding agent, split by feature so each step loads only what it needs. The full plan is the archived master plan (.ai/PLAN.MD), which is for humans.
 

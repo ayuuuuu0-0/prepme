@@ -1,6 +1,6 @@
-# AI Interview Prep Kit: Complete Assignment Plan
+# PrepMe: Complete Project Plan
 
-This file breaks the Trao full-stack assessment (FS-AI-INTERVIEW-01) into parts and sub-parts. Each item is tagged by who does the work, so you know where an agent can run and where you must think, decide and write.
+This file breaks the PrepMe full-stack interview prep kit platform into parts and sub-parts. Each item is tagged by who does the work, so you know where an agent can run and where you must think, decide and write.
 
 ## How to read the tags
 
@@ -1137,7 +1137,7 @@ If you fall behind, cut in this order: creative feature, bulk upload polish, dra
 Give the agent this after you finish D1 to D9. Fill the bracketed parts from `DECISIONS.md`.
 
 ```
-You are helping me build a web app for the Trao assessment "AI Interview Prep Kit".
+You are helping me build a web app for PrepMe: "AI Interview Prep Kit".
 Work in TypeScript in an npm workspaces monorepo with packages core, server, web, cli.
 
 Hard rules:

@@ -11,8 +11,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "PrepMe | AI Interview Prep Kit",
-  description: "Targeted, evidence-backed interview preparation kits generated from real job postings and verified research.",
+  title: "PrepMe — Open-Source AI Interview Prep Kit Platform",
+  description: "Targeted, evidence-backed interview preparation kits and study platform powered by open-weight Google Gemma 2 and local inference.",
 };
 
 export default function RootLayout({

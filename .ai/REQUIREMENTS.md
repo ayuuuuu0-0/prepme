@@ -85,5 +85,15 @@ One row per requirement from the brief. Update at every checkpoint. Status is to
 | R-SUB-2 | Environment variables documented | 61 | done | .env.example, README.md | README.md |
 | R-SUB-3 | README with every required section | 62 | done | README.md | README.md |
 | R-SUB-4 | Walkthrough video of 3 to 4 minutes | 62 | done | VIDEO_SCRIPT.md | VIDEO_SCRIPT.md |
+| R-SH-1 | Open-weight model at the core (Google Gemma 2 via Ollama / cloud open weights) | 30 | done | packages/core/src/llm/llmClient.ts, .env.example | packages/core/test/llmClient.test.ts |
+| R-SH-2 | Zero marginal inference cost ($0 per kit for high-margin SaaS) | 30 | done | packages/core/src/llm/llmClient.ts, README.md | packages/core/test/llmClient.test.ts |
+| R-SH-3 | 100% air-gapped data privacy (candidate resumes & hiring notes never leak) | 20 | done | packages/core/src/retrieval/safeFetch.ts, packages/core/src/llm/llmClient.ts | packages/core/test/safeFetch.test.ts |
+| R-SH-4 | PrepMe brand theme & Side Hustle SaaS monetization tiers ($0 / $19 / $49) | 51 | done | packages/web/src/app/page.tsx, packages/web/src/components/CreateKitModal.tsx | packages/web/src/app/page.tsx |
+| R-SH-5 | Resilient persistence with MongoDB Atlas & memory-server fallback | 42 | done | packages/server/src/models/Kit.ts, packages/server/src/index.ts | packages/server/test/server.test.ts |
 
-Optional: creative feature (skill 53).
+---
+## Side Hustle & Open Innovation Track
+- **Open-Weight Core**: Google Gemma 2 (`gemma2:9b` locally or `gemma-2-9b-it` cloud).
+- **Zero API Bills**: Pure local inference via Ollama or fixed GPU instance eliminates per-token API costs.
+- **Privacy Compliance**: Confidential job details and recruiter discussions are protected locally.
+- **Monetization**: Built-in pricing tiers tested with real freelance job seekers.

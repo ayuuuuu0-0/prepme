@@ -222,15 +222,19 @@ export function CreateKitModal({ isOpen, onClose, onKitCreated }: CreateKitModal
                 />
               </div>
 
-              <div className="flex flex-col justify-end">
-                <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-300 pb-2">
+              <div className="flex flex-col justify-end space-y-1">
+                <div className="text-[11px] text-teal-400 font-medium flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
+                  <span>Engine: Google Gemma 2 (Open-Weight)</span>
+                </div>
+                <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-300 pb-1">
                   <input
                     type="checkbox"
                     checked={useFakeLlm}
                     onChange={(e) => setUseFakeLlm(e.target.checked)}
                     className="rounded bg-background border-surface-border text-accent focus:ring-accent"
                   />
-                  <span>Fast Demo Mode (Instant Fake LLM)</span>
+                  <span>Fast Demo Mode (Instant Mock LLM)</span>
                 </label>
               </div>
             </div>

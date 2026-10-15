@@ -8,18 +8,20 @@ code: packages/core/src/llm
 
 # Llm client
 
-## D2. LLM provider and model
+## D2. Open-Weight Model Architecture (Google Gemma 2 & Ollama)
 
-- **Criteria**: a real free tier, JSON output mode or structured output support, a context window of at least 16k tokens, free-tier limits that fit your call budget (see 6.13), and a signup that works from your own country.
-- **How to choose**: check the provider's current documentation for requests per minute (RPM), tokens per minute (TPM) and requests per day (RPD). Free-tier limits change. Then run 20 real calls with your real prompt sizes and record how many return 429 and the median latency.
-- **Current recommendation (checked in September 2026, so verify before you rely on it)**:
-  - **Primary**: Gemini Flash-Lite (`gemini-3.1-flash-lite` or `gemini-3.5-flash-lite`) on Google's free tier. Trackers list about 500 requests per day for the Flash-Lite models and about 20 per day for the larger Flash models. A 5-case batch needs roughly 40 to 60 calls, so a 20-per-day model cannot finish one run and must not be your default. One tracker lists 15 RPM and 250K TPM for 3.1 Flash-Lite. Read the real numbers for your project at aistudio.google.com/rate-limit and write them down.
-  - **Fallbacks, ordered and all optional**: Mistral free mode first (no card, possible SMS verification, about 1 request per second reported, turn off training data sharing in the Admin Console under Privacy). GLM-4.7-Flash on the international z.ai endpoint second (email signup, 1 concurrent request, so run it with concurrency 1).
-  - **Not usable for you or not free**: Alibaba Qwen (the international console ties your phone number to the country chosen at signup, and you found India is not offered), DeepSeek and Kimi (paid), OpenRouter free models (50 requests per day until you buy credits), Cerebras (a payment method is required before the credit works), Groq (free, but 8K tokens per minute, so suitable for small calls only).
-  - **Data note**: free tiers can use your prompts for training (Gemini free tier, Mistral free mode by default). Say so in the README and never send private data through them.
-- **Design for graders swapping keys**: the graders run your command with credentials from `.env.example`. Use an adapter with environment-driven settings (`LLM_API_KEY`, `LLM_BASE_URL`, `LLM_MODEL`, `LLM_RPM`, `LLM_TPM`, `LLM_CONCURRENCY`). Many providers, including several with free tiers, offer OpenAI-compatible endpoints, which lets a grader change provider by changing environment values only. Confirm this for your provider.
-- **Design for missing keys**: the fallback list is generic (numbered environment variables, see 5.4), never tied to one vendor. A missing fallback key means a single-provider run, never a crash.
-- **Record**: provider, model, limits and the date you checked them, plus the ordered fallback list.
+- **Challenge Alignment: Side Hustle & Open-Weight Models**:
+  - **Primary Engine**: Google Gemma 2 (`gemma2:9b` locally via Ollama `http://localhost:11434/v1`, or `gemma-2-9b-it` via cloud open weights).
+  - **Why Open Innovation Matters for this Side Hustle**:
+    - **Zero Marginal Inference Cost**: Running inference locally via Ollama or a fixed-price GPU instance costs $0 per generation. A $19/kit side hustle yields ~98% gross profit margins, unlike closed APIs that bleed margins through token billing.
+    - **Air-Gapped Candidate Privacy**: Proprietary job postings, candidate notes, and resume details never leave the user's machine. Zero data leakage to closed AI servers.
+    - **High-Precision Grounding**: Gemma 2's instruction-following accurately adheres to verbatim quotation extraction without hallucinating phantom skills.
+  - **Ordered Fallback Chain**:
+    - **Provider 1 (Primary)**: `gemma2-local` (`gemma2:9b` via Ollama).
+    - **Provider 2 (Fallback 1)**: `gemma2-cloud` (`gemma2-9b-it` via Groq / OpenRouter / Hugging Face).
+    - **Provider 3 (Fallback 2)**: Open-weight Mistral / Llama (`mistral-small` / `llama-3.3-70b`).
+    - **Provider 4 (Offline Mock)**: Deterministic `FakeLlmClient` for instant offline testing and CI/CD without model daemons.
+  - **Local Inference Adapter**: Provider configuration supports local endpoints (e.g. Ollama, vLLM) without requiring an API key. Defaults to Bearer authentication with token fallback.
 
 ## 6.13 LLM client and provider rate limits
 

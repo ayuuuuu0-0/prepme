@@ -37,11 +37,32 @@ export async function extractCompanyBrief(
   const totalUsableLength = combinedPageText.trim().length;
 
   // Zero-call honest brief if usable text is thin (< 200 characters)
+  // Fall back to extracting company info from job description
   if (totalUsableLength < 200) {
-    const fallbackName = companyName.trim() || "this company";
+    const fallbackName = companyName.trim() || "the company";
+
+    // Try to extract company context from JD
+    const jdLower = jdText.toLowerCase();
+    let companyContext = "";
+
+    if (jdLower.includes("we ") || jdLower.includes("our ")) {
+      // JD has first-person context
+      const sentences = jdText.split(/[.!?]+/).slice(0, 5);
+      companyContext = sentences.join(". ");
+    }
+
+    if (companyContext.length > 50) {
+      return {
+        summary: `${fallbackName} is described in their job posting. ${companyContext.slice(0, 300)}`,
+        what_they_do: `Based on the role description: ${jdText.slice(0, 200)}...`,
+        sources: [],
+        edited_fields: [],
+      };
+    }
+
     return {
-      summary: `No information about ${fallbackName} could be retrieved from ${companyUrl}.`,
-      what_they_do: "Not found.",
+      summary: `Company information for ${fallbackName} was not available from ${companyUrl}. Assessment based on job description requirements.`,
+      what_they_do: "Not specified in available sources.",
       sources: [],
       edited_fields: [],
     };

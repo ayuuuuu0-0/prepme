@@ -349,18 +349,7 @@ export async function runPipeline(
       );
     workingKit = kitAfterQuestions;
 
-    // 6. Flashcard Generation
-    const { flashcards, updatedKit: kitAfterFlashcards, warnings: flashcardWarnings } =
-      await generateFlashcards(
-        genQuestions,
-        requirements,
-        llmClient,
-        workingKit
-      );
-    workingKit = kitAfterFlashcards;
-    allWarnings.push(...flashcardWarnings);
-
-    // 7. Coverage Loop (guaranteeing 100% must-have coverage)
+    // 6. Coverage Loop (guaranteeing 100% must-have coverage)
     const {
       questions: finalQuestions,
       updatedKit: kitAfterCoverage,
@@ -374,6 +363,17 @@ export async function runPipeline(
     );
     workingKit = kitAfterCoverage;
     allWarnings.push(...coverageWarnings);
+
+    // 7. Flashcard Generation (AFTER coverage loop so we have final questions)
+    const { flashcards, updatedKit: kitAfterFlashcards, warnings: flashcardWarnings } =
+      await generateFlashcards(
+        finalQuestions,
+        requirements,
+        llmClient,
+        workingKit
+      );
+    workingKit = kitAfterFlashcards;
+    allWarnings.push(...flashcardWarnings);
 
     // 8. Deterministic Schedule Allocation
     const schedule = allocateSchedule(finalQuestions, requirements, input.days);

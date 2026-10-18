@@ -20,3 +20,8 @@ test/fixtures/output*.json
 test/output
 inspiration
 .cache
+.env
+VIDEO_SCRIPT.md
+TEST_RESULTS.md  
+DECISIONS.md
+buid_ai.py

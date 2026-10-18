@@ -3,6 +3,7 @@ import { Readable } from "node:stream";
 import { Agent, fetch as undiciFetch, type Response } from "undici";
 import * as cheerio from "cheerio";
 import { isPrivateIp } from "./isPrivateIp.js";
+import { browserFetch, needsBrowserRendering } from "./browserFetch.js";
 
 const USER_AGENT = "PrepMe-Bot/1.0 (+https://github.com/prepme)";
 const MAX_REDIRECTS = 5;
@@ -296,6 +297,30 @@ export async function safeFetch(
       const { text, title, links } = isHtml
         ? parseHtml(body, currentUrl.toString())
         : { text: body.slice(0, MAX_TEXT_CHARS), title: "", links: [] };
+
+      // Check if page needs browser rendering (JS-heavy SPA)
+      if (isHtml && needsBrowserRendering(body)) {
+        console.log(`[safeFetch] Detected JS-rendered site, using Playwright: ${currentUrl.toString()}`);
+        try {
+          const browserResult = await browserFetch(currentUrl.toString());
+          if (browserResult.ok) {
+            return {
+              ok: true,
+              url: browserResult.url,
+              status: response.status,
+              text: browserResult.text,
+              title: browserResult.title,
+              links: browserResult.links,
+              error: null,
+            };
+          }
+          // If browser fetch failed, fall back to the static HTML we already have
+          console.log(`[safeFetch] Playwright failed, using static HTML: ${browserResult.error}`);
+        } catch (browserError) {
+          console.log(`[safeFetch] Playwright error, using static HTML:`, browserError);
+          // Continue with static HTML
+        }
+      }
 
       return {
         ok: true,

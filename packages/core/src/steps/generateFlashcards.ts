@@ -72,7 +72,10 @@ export async function generateFlashcards(
   llmClient: ILlmClient,
   baseKit: Kit
 ): Promise<{ flashcards: Flashcard[]; updatedKit: Kit; warnings: Warning[] }> {
+  console.log(`[generateFlashcards] Input: ${questions.length} questions, ${requirements.length} requirements`);
+
   if (questions.length === 0) {
+    console.log('[generateFlashcards] No questions provided, returning empty');
     return { flashcards: [], updatedKit: baseKit, warnings: [] };
   }
 
@@ -82,12 +85,15 @@ export async function generateFlashcards(
   const userPrompt = `Generate study flashcards from the following interview questions and requirements:\n\n${wrapUntrusted("study-material", context)}`;
 
   try {
+    console.log('[generateFlashcards] Calling LLM for flashcard generation...');
     const raw = await llmClient.generateJson(
       { system: FLASHCARDS_SYSTEM_PROMPT, user: userPrompt, stepName: "generate-flashcards" },
       RawFlashcardsResponseSchema
     );
+    console.log(`[generateFlashcards] LLM returned ${raw.flashcards?.length || 0} flashcards`);
 
     if (!raw.flashcards || raw.flashcards.length === 0) {
+      console.log('[generateFlashcards] No flashcards from LLM, using fallback derivation');
       return deriveFlashcardsFromQuestions(questions, baseKit);
     }
 
@@ -112,9 +118,11 @@ export async function generateFlashcards(
       });
     }
 
+    console.log(`[generateFlashcards] Successfully generated ${flashcards.length} flashcards`);
     return { flashcards, updatedKit: currentKit, warnings: [] };
-  } catch {
+  } catch (err) {
     // Graceful fallback to deterministic derivation
+    console.log('[generateFlashcards] LLM error, using fallback:', err instanceof Error ? err.message : String(err));
     return deriveFlashcardsFromQuestions(questions, baseKit);
   }
 }

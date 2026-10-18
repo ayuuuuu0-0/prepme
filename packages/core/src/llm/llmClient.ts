@@ -120,15 +120,27 @@ export class MultiProviderLlmClient implements ILlmClient {
       Authorization: `Bearer ${provider.config.apiKey || "ollama"}`,
     };
 
-    const body = JSON.stringify({
+    // Detect if this is an Ollama provider - they don't support response_format properly
+    const isOllama =
+      provider.config.baseUrl.includes("localhost:11434") ||
+      provider.config.baseUrl.includes("ollama") ||
+      provider.config.apiKey === "ollama";
+
+    const requestBody: any = {
       model: provider.config.model,
       messages: [
         { role: "system", content: prompt.system },
         { role: "user", content: prompt.user },
       ],
       temperature: 0.2,
-      response_format: { type: "json_object" },
-    });
+    };
+
+    // Only add response_format for non-Ollama providers (Groq, OpenAI, etc.)
+    if (!isOllama) {
+      requestBody.response_format = { type: "json_object" };
+    }
+
+    const body = JSON.stringify(requestBody);
 
     const res = await this.fetchFn(endpoint, {
       method: "POST",

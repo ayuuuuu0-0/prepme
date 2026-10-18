@@ -39,7 +39,7 @@ export default function HomePage() {
               href="/register"
               className="text-sm font-semibold bg-accent hover:bg-accent-hover text-black px-4 py-2 rounded-lg transition-colors shadow-lg shadow-accent/20"
             >
-              Start Side Hustle
+              Get Started
             </Link>
           </div>
         </div>
@@ -50,17 +50,17 @@ export default function HomePage() {
         <div className="space-y-4 max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-accent/10 border border-accent/30 text-accent text-xs font-semibold tracking-wide">
             <Zap className="w-3.5 h-3.5 fill-accent" />
-            <span>SIDE HUSTLE SAAS &bull; POWERED BY OPEN-WEIGHT GOOGLE GEMMA 2</span>
+            <span>100% LOCAL &bull; RUNS ON YOUR LAPTOP &bull; OPEN-SOURCE</span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-100 leading-[1.15]">
-            Turn Job Postings into Paid Interview Kits with{" "}
-            <span className="text-accent">Open-Source AI</span>
+            AI-Powered Interview Prep Kits from{" "}
+            <span className="text-accent">Any Job Posting</span>
           </h1>
 
           <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            A high-margin interview coaching side hustle powered by open-weight models.
-            Run locally on <strong>Google Gemma 2</strong> with zero per-token API bills, complete candidate privacy, verbatim evidence grounding, and spaced repetition.
+            Generate custom interview prep kits from any job posting using <strong>Qwen 2.5 Coder 7B</strong> running 100% locally.
+            Zero API costs, complete data privacy, verbatim evidence grounding. Upgrade to cloud models for 10x faster generation.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
@@ -80,11 +80,11 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Why Open Innovation Matters (Side Hustle Pillars) */}
+        {/* Why Open Innovation Matters */}
         <div className="pt-6">
           <div className="text-left mb-6">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-accent">Why Open-Source AI Powers This Side Hustle</h2>
-            <p className="text-lg font-semibold text-slate-200">Built to beat closed API economics and protect candidate confidentiality</p>
+            <h2 className="text-xs font-bold uppercase tracking-wider text-accent">Why Open-Source AI</h2>
+            <p className="text-lg font-semibold text-slate-200">Built for privacy, control, and zero ongoing costs</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
@@ -92,9 +92,9 @@ export default function HomePage() {
               <div className="w-10 h-10 rounded-lg bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-accent">
                 <Coins className="w-5 h-5" />
               </div>
-              <h3 className="font-bold text-slate-100 text-base">Zero Inference Cost &bull; 95%+ Margins</h3>
+              <h3 className="font-bold text-slate-100 text-base">Zero API Costs (Free Tier)</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Closed APIs charge hefty per-token fees on lengthy job descriptions and crawled context. Running open-weight <strong>Google Gemma 2</strong> locally via Ollama costs $0 in marginal API fees, making a $19/kit side hustle nearly 100% gross profit.
+                Run <strong>Qwen 2.5 Coder 7B</strong> locally via Ollama with $0 per-token costs. Upgrade to cloud-hosted models for 10x faster generation (2-3 min → 10-20 sec) while keeping your local option available anytime.
               </p>
             </div>
 
@@ -147,25 +147,26 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Side Hustle Monetization Plans */}
+        {/* Pricing Plans */}
         <div className="pt-6">
           <div className="text-center mb-8">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-accent">Side Hustle Monetization Ready</h2>
-            <p className="text-2xl font-bold text-slate-100 mt-1">Sell interview prep services or monetize personal kits</p>
-            <p className="text-xs text-slate-400 mt-1">Built-in pricing models tested with real freelance tech job seekers</p>
+            <h2 className="text-xs font-bold uppercase tracking-wider text-accent">Flexible Plans</h2>
+            <p className="text-2xl font-bold text-slate-100 mt-1">Choose the plan that fits your needs</p>
+            <p className="text-xs text-slate-400 mt-1">From free local use to professional coaching features</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto text-left">
             <div className="bg-surface-card border border-surface-border rounded-xl p-6 space-y-4 flex flex-col justify-between">
               <div className="space-y-3">
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-800 text-slate-300">Free / Local</span>
-                <h3 className="text-xl font-bold text-slate-100">Starter</h3>
+                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-800 text-slate-300">100% Local</span>
+                <h3 className="text-xl font-bold text-slate-100">Open Source</h3>
                 <div className="text-3xl font-extrabold text-slate-100">$0 <span className="text-xs text-slate-400 font-normal">/ forever</span></div>
-                <p className="text-xs text-slate-400">Run locally on your own machine with Ollama &amp; Gemma 2.</p>
+                <p className="text-xs text-slate-400">Run Llama 3.1 8B locally via Ollama. Your data never leaves your laptop.</p>
                 <ul className="text-xs text-slate-300 space-y-2 pt-2 border-t border-surface-border">
-                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-accent" /> 1 Active Kit at a time</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Local Ollama (Gemma 2:9b)</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Practice flashcards</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Unlimited prep kits</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Local Qwen 2.5 Coder (2-3 min/kit)</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Full privacy &amp; offline mode</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Practice &amp; flashcards</li>
                 </ul>
               </div>
               <Link href="/register" className="w-full text-center py-2 rounded-lg bg-surface border border-surface-border text-xs font-semibold hover:border-slate-500 transition-colors">
@@ -178,15 +179,15 @@ export default function HomePage() {
                 Most Popular
               </div>
               <div className="space-y-3">
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-accent/20 text-accent">Pro Seeker</span>
-                <h3 className="text-xl font-bold text-slate-100">Job Hunter</h3>
+                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-accent/20 text-accent">Cloud-Powered</span>
+                <h3 className="text-xl font-bold text-slate-100">Pro</h3>
                 <div className="text-3xl font-extrabold text-slate-100">$19 <span className="text-xs text-slate-400 font-normal">/ month</span></div>
-                <p className="text-xs text-slate-400">For ambitious candidates actively interviewing across multiple offers.</p>
+                <p className="text-xs text-slate-400">10x faster generation with cloud-hosted Llama 3.3 70B + Groq inference.</p>
                 <ul className="text-xs text-slate-300 space-y-2 pt-2 border-t border-surface-border">
-                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Unlimited Prep Kits</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Automated company web crawling</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-accent" /> 60-Second timed drill simulations</li>
-                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Cloud sync via MongoDB Atlas</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Everything in Free</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Cloud models (10-20 sec/kit)</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Higher quality questions</li>
+                  <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Advanced company research</li>
                 </ul>
               </div>
               <Link href="/register" className="w-full text-center py-2 rounded-lg bg-accent text-black text-xs font-bold hover:bg-accent-hover transition-colors shadow-lg shadow-accent/20">
@@ -196,10 +197,10 @@ export default function HomePage() {
 
             <div className="bg-surface-card border border-surface-border rounded-xl p-6 space-y-4 flex flex-col justify-between">
               <div className="space-y-3">
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-300">Side Hustle / Coach</span>
+                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-300">Professional</span>
                 <h3 className="text-xl font-bold text-slate-100">Career Coach</h3>
                 <div className="text-3xl font-extrabold text-slate-100">$49 <span className="text-xs text-slate-400 font-normal">/ month</span></div>
-                <p className="text-xs text-slate-400">For coaches generating grounded prep materials for coaching clients.</p>
+                <p className="text-xs text-slate-400">For coaches generating professional prep materials for clients.</p>
                 <ul className="text-xs text-slate-300 space-y-2 pt-2 border-t border-surface-border">
                   <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Bulk upload (up to 10 at once)</li>
                   <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-accent" /> Custom white-label study plans</li>
@@ -223,7 +224,7 @@ export default function HomePage() {
             <span>PrepMe &bull; Open-Source AI Interview Preparation Platform</span>
           </div>
           <div className="flex items-center gap-4 text-[11px] text-slate-400">
-            <span className="flex items-center gap-1.5"><Cpu className="w-3.5 h-3.5 text-accent" /> Powered by Google Gemma 2</span>
+            <span className="flex items-center gap-1.5"><Cpu className="w-3.5 h-3.5 text-accent" /> Powered by Qwen 2.5 Coder 7B</span>
             <span className="flex items-center gap-1.5"><Database className="w-3.5 h-3.5 text-accent" /> MongoDB Atlas</span>
           </div>
         </div>

@@ -16,7 +16,7 @@ export default function PracticeModePage({ params }: PageProps) {
   return (
     <div className="min-h-screen pb-16">
       {/* Top Header */}
-      <div className="border-b border-surface-border bg-surface/80 backdrop-blur-sm sticky top-16 z-30">
+      <div className="border-b border-surface-border bg-surface/80 backdrop-blur-sm sticky top-0 z-30">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link

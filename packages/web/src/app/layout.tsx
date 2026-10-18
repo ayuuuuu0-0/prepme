@@ -12,7 +12,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "PrepMe — Open-Source AI Interview Prep Kit Platform",
-  description: "Targeted, evidence-backed interview preparation kits and study platform powered by open-weight Google Gemma 2 and local inference.",
+  description: "Targeted, evidence-backed interview preparation kits and study platform powered by open-weight AI models and local inference.",
 };
 
 export default function RootLayout({

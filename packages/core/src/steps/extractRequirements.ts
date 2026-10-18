@@ -16,7 +16,7 @@ export const RawRequirementItemSchema = z.object({
   text: z.string().min(1),
   kind: z.enum(["technical", "behavioural", "domain"]),
   priority: z.enum(["must", "nice"]),
-  evidence: z.string().min(1),
+  evidence: z.string().default(""),
 });
 
 export const RawExtractionSchema = z.object({
@@ -46,6 +46,16 @@ const EXTRACTION_SYSTEM_PROMPT = `${UNTRUSTED_DATA_SYSTEM_INSTRUCTION}
 
 You are an expert technical recruiter analyzing a job posting.
 Extract structured information accurately from the provided job description data.
+
+CRITICAL - Exact JSON Values Required:
+- "kind": MUST BE EXACTLY one of: "technical", "behavioural", "domain" (nothing else)
+- "priority": MUST BE EXACTLY one of: "must", "nice" (NEVER "nice-to-have", "required", "preferred")
+- DO NOT confuse kind and priority - they are completely different fields!
+
+Examples of correct JSON:
+{"text": "5+ years Python", "kind": "technical", "priority": "must", "evidence": "5+ years of Python experience"}
+{"text": "Good communication", "kind": "behavioural", "priority": "must", "evidence": "excellent communication skills"}
+{"text": "AWS experience helpful", "kind": "technical", "priority": "nice", "evidence": "AWS experience is a plus"}
 
 Rules:
 1. Return valid JSON adhering strictly to the required schema.
@@ -160,8 +170,10 @@ export async function extractRequirements(
   let counter = 1;
 
   for (const item of raw.requirements) {
+    const evidence = item.evidence || "";
+
     // 1. Grounding check: drop if evidence is not found in the original JD text.
-    if (!isGrounded(item.evidence, jd)) {
+    if (!isGrounded(evidence, jd)) {
       continue;
     }
 
@@ -173,14 +185,14 @@ export async function extractRequirements(
     seenTexts.add(norm);
 
     // 3. Priority override according to D5 mapping.
-    const priority = determinePriority(item.evidence, item.priority, jd);
+    const priority = determinePriority(evidence, item.priority, jd);
 
     groundedRequirements.push({
       id: `r${counter++}`,
       text: item.text.trim(),
       kind: item.kind,
       priority,
-      evidence: item.evidence.trim(),
+      evidence: evidence.trim(),
     });
   }
 
